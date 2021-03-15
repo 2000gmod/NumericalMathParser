@@ -4,6 +4,9 @@ CFLAGS = -Wall
 
 TARGET = mathp
 
+default: clean
+	$(CC) $(CFLAGS) -o $(TARGET) src/*.c
+
 $(TARGET): src/main.o src/node.o src/parser.o
 	$(CC) src/main.o src/node.o src/parser.o -o $(TARGET) $(CFLAGS)
 

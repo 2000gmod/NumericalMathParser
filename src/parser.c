@@ -28,6 +28,7 @@ node* parseExpression(char *string){
     int parenthesisLevel = 0;
 
     //First base case, check if the string contains only an integer number
+
     char *check;
     int number = strtol(string, &check, 10);
     if(check[0] == '\0'){
@@ -36,6 +37,8 @@ node* parseExpression(char *string){
         return current;
     }
     //Second "base" case, check if entire string is within parenthesis
+    //not really a base case if it calls itself again, but it behaves like one
+
     if(string[0] == '(' && string[len - 1] == ')' && findMatchingParenthesisIndexRight(string, 0) == len - 1){
         string[len - 1] = '\0';
         parseExpression(&string[1]);
@@ -44,8 +47,8 @@ node* parseExpression(char *string){
     }
 
     //Right to left, because tree is later evaluated left to right, so the tree constructor does it in reverse
-
     //First pass is + and - signs, again because tree is evaluated in inverse order to its construction
+
     for(int i = len -1; i >= 0; i--){
         char c = string[i];
         if (c == '(') parenthesisLevel--;
@@ -72,6 +75,7 @@ node* parseExpression(char *string){
     }
 
     //Second pass for * and / signs
+
     for(int i = len -1; i >= 0; i--){
         char c = string[i];
         if (c == '(') parenthesisLevel--;
@@ -96,7 +100,9 @@ node* parseExpression(char *string){
             return current;
         }
     }
+
     //Third pass for ^ operator
+
     for(int i = len -1; i >= 0; i--){
         char c = string[i];
         if (c == '(') parenthesisLevel--;
@@ -115,7 +121,10 @@ node* parseExpression(char *string){
     return NULL;
 }
 
-char* remove_spaces (const char* str){
+char* remove_spaces(const char* str){
+    
+    //This function causes a small memory leak, fix soon
+
     int oLen = strlen(str);
     int nLen = 0;
     for(int i = 0; i <= oLen; i++){
@@ -157,6 +166,7 @@ int findMatchingParenthesisIndexRight(char* string, int index){
 }
 
 //Not used, but useful to have anyways
+
 int findMatchingParenthesisIndexLeft(char* string, int index){
     int parentesisLevel = 1;
     for (int i = index - 1; i >= 0; i--){

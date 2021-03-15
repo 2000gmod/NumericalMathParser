@@ -9,7 +9,7 @@
 
 int checkSyntax(char* string);
 node* parseExpression(char* string);
-char* remove_spaces (const char* str);
+char* remove_spaces(const char* str);
 
 void displayHelp();
 

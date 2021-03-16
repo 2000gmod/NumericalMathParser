@@ -44,7 +44,6 @@ node* parseExpression(char *string){
 
     if(string[0] == '(' && string[len - 1] == ')' && findMatchingParenthesisIndexRight(string, 0) == len - 1){
         string[len - 1] = '\0';
-        parseExpression(&string[1]);
         current = parseExpression(&string[1]);
         return current;
     }

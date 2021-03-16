@@ -1,15 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "node.h"
-
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "node.h"
+
 int checkSyntax(char* string);
 node* parseExpression(char* string);
-char* remove_spaces(const char* str);
+void removeSpaces(char* str);
 
 void displayHelp();
 

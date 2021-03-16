@@ -1,5 +1,9 @@
 #include "parser.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 int checkSyntax(char* string){
 
     //Check syntax, right now only checks if the characters are valid.
@@ -22,7 +26,6 @@ int checkSyntax(char* string){
 }
 
 node* parseExpression(char *string){
-    string = remove_spaces(string);
     node* current = malloc(sizeof(node));
     int len = strlen(string);
     int parenthesisLevel = 0;
@@ -54,22 +57,11 @@ node* parseExpression(char *string){
         if (c == '(') parenthesisLevel--;
         if (c == ')') parenthesisLevel++;
 
-        if (c == '+' && parenthesisLevel == 0){
+        if (parenthesisLevel == 0 && (c == '+' || c == '-')){
             string[i] = 0;
-            current->operator = add;
-
+            current->operator = (c == '+' ? add : sub);
             current->left = parseExpression(string);
             current->right = parseExpression(&string[i + 1]);
-
-            return current;
-        }
-        else if (c == '-' && parenthesisLevel == 0){
-            string[i] = 0;
-            current->operator = sub;
-
-            current->left = parseExpression(string);
-            current->right = parseExpression(&string[i + 1]);
-
             return current;
         }
     }
@@ -81,22 +73,11 @@ node* parseExpression(char *string){
         if (c == '(') parenthesisLevel--;
         if (c == ')') parenthesisLevel++;
 
-        if (c == '*' && parenthesisLevel == 0){
+        if (parenthesisLevel == 0 && (c == '*' || c == '/')){
             string[i] = 0;
-            current->operator = mult;
-
+            current->operator = (c == '*' ? mult : divi);
             current->left = parseExpression(string);
             current->right = parseExpression(&string[i + 1]);
-
-            return current;
-        }
-        else if (c == '/' && parenthesisLevel == 0){
-            string[i] = 0;
-            current->operator = divi;
-
-            current->left = parseExpression(string);
-            current->right = parseExpression(&string[i + 1]);
-
             return current;
         }
     }
@@ -111,34 +92,27 @@ node* parseExpression(char *string){
         if (c == '^' && parenthesisLevel == 0){
             string[i] = 0;
             current->operator = power;
-
             current->left = parseExpression(string);
             current->right = parseExpression(&string[i + 1]);
-
             return current;
         }
     }
     return NULL;
 }
 
-char* remove_spaces(const char* str){
+void removeSpaces(char* str){
     
-    //This function causes a small memory leak, fix soon
 
     int oLen = strlen(str);
-    int nLen = 0;
-    for(int i = 0; i <= oLen; i++){
-        if(str[i] != ' ' && str[i] != '\n') nLen++;
-    }
-    char *out = malloc(nLen);
     int counter = 0;
     for(int i = 0; i <= oLen; i++){
         if(str[i] != ' ' && str[i] != '\n'){
-            out[counter] = str[i];
+            str[counter] = str[i];
             counter++;
         }
+        else str[i] = '\0';
     }
-    return out;
+    return;
 }
 
 void displayHelp(){

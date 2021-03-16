@@ -1,4 +1,10 @@
 #include "node.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+
 extern int verboseMode;
 
 long evaluate(node* head){
@@ -41,6 +47,6 @@ long power(long a, long b){
         out *= a;
     }
 
-    if (verboseMode) printf("$: POW %ld %ld --> %ld\n", a, b, out);
+    if (verboseMode) printf("$: POW %ld %ld = %ld\n", a, b, out);
     return out;
 }

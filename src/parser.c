@@ -26,7 +26,7 @@ int checkSyntax(char* string){
 }
 
 node* parseExpression(char *string){
-    node* current = malloc(sizeof(node));
+    node* current = createNode();
     int len = strlen(string);
     int parenthesisLevel = 0;
 
@@ -44,6 +44,7 @@ node* parseExpression(char *string){
 
     if(string[0] == '(' && string[len - 1] == ')' && findMatchingParenthesisIndexRight(string, 0) == len - 1){
         string[len - 1] = '\0';
+        free(current);
         current = parseExpression(&string[1]);
         return current;
     }

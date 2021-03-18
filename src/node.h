@@ -9,6 +9,7 @@ typedef struct Node{
     struct Node* right;
 }node;
 
+node* createNode(void);
 long evaluate(node* head);
 
 long add(long a, long b);

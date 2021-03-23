@@ -55,6 +55,10 @@ long divi(long a, long b){
 }
 long power(long a, long b){
     long out = 1;
+    
+    for(int i = 1; i<= b; i++){
+        out *= a;
+    }
     if (verboseMode){
         printf("$: POW %ld %ld = %ld\n", a, b, out);
     }
@@ -68,9 +72,6 @@ long power(long a, long b){
     if (b < 0){
         printf("$: Warning: number with negative exponent.\n$: This parser does not support non-integer values, this will return 0 as fallback.\n");
         return 0;
-    }
-    for(int i = 1; i<= b; i++){
-        out *= a;
     }
 
     return out;

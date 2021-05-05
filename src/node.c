@@ -48,6 +48,10 @@ long mult(long a, long b){
     return a*b;
 }
 long divi(long a, long b){
+    if (b == 0){
+        printf("$: Warning: division by 0. This will return 0 as fallback.\n");
+        return 0;
+    }
     float test = (float) a/b;
     if (fabs(test - a/b) > 0.00001) printf("$: Warning: division will return rounded down integer value.\n");
     if (verboseMode) printf("$: DIV %ld %ld = %ld\n", a, b, a/b);

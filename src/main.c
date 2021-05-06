@@ -7,6 +7,7 @@ int verboseMode = 0;
 
 int main(){
 
+    printf("bienvenido al programa\n");
     printf("Numerical Math Parser, made by 2000gmod.\n");
     printf("Type \"exit\" or \"quit\" to exit the program.\n");
     printf("Type \"verb\" to toggle verbose mode.\n\n");
